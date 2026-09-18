@@ -4,147 +4,107 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="함수·조건문·반복문으로 만든 할 일 관리 앱. Python(todo.py)이 브라우저 안에서 그대로 실행됩니다.">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <title>오늘의 할 일</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic+Coding&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root {
-    --paper: #FFFEFB;
-    --ink: #3D3D3D;
-    --ink-soft: #7A7A7A;
-    --pink: #F9AFC8;
-    --pink-deep: #F07FA5;
-    --sky: #A9D4F5;
-    --sky-deep: #6FB3E8;
-    --butter: #FBE38A;
-    --butter-deep: #F2C94C;
-    --mint: #B5E6BF;
-    --mint-deep: #6CC482;
-    --lilac: #D3C1F2;
-    --lilac-deep: #A98BE0;
-    --hand: "Gaegu", "Nanum Pen Script", "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    --mono: "Nanum Gothic Coding", "D2Coding", Consolas, monospace;
-    --wobble: 255px 18px 225px 18px / 18px 225px 18px 255px;
-    --wobble-sm: 120px 10px 110px 10px / 10px 110px 10px 120px;
+    --bg: #FFFFFF;
+    --ink: #111111;
+    --ink-2: #6E6E6E;
+    --ink-3: #B4B4B4;
+    --line: #E4E4E4;
+    --accent: #FF5A1F;
+    --on-accent: #FFFFFF;
+    --console-bg: #111111;
+    --console-ink: #E8E8E8;
+    --console-dim: #8A8A8A;
+    --sans: "IBM Plex Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --mono: "IBM Plex Mono", "D2Coding", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111111; --ink: #F2F2F2; --ink-2: #9A9A9A; --ink-3: #5A5A5A; --line: #2A2A2A;
+      --accent: #FF6A33; --console-bg: #000000; --console-ink: #E8E8E8; --console-dim: #7A7A7A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111111; --ink: #F2F2F2; --ink-2: #9A9A9A; --ink-3: #5A5A5A; --line: #2A2A2A;
+    --accent: #FF6A33; --console-bg: #000000; --console-ink: #E8E8E8; --console-dim: #7A7A7A;
   }
   * { box-sizing: border-box; }
-  html { background: var(--paper); }
+  html { background: var(--bg); }
   body {
-    margin: 0; background: var(--paper); color: var(--ink);
-    font-family: var(--hand); font-size: 22px; line-height: 1.45;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
     -webkit-font-smoothing: antialiased; word-break: keep-all;
-    min-height: 100vh; overflow-x: hidden;
   }
   button, input { font: inherit; color: inherit; }
   button { cursor: pointer; background: none; border: 0; padding: 0; }
-  button:focus-visible, input:focus-visible { outline: 3px dashed var(--sky-deep); outline-offset: 3px; }
-  button:disabled { cursor: default; opacity: .55; }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  button:disabled { cursor: default; opacity: .4; }
 
-  .stage { position: relative; max-width: 620px; margin: 0 auto; padding: 56px 20px 80px; }
+  .page { max-width: 520px; margin: 0 auto; padding: 72px 24px 96px; }
 
-  /* 낙서들 */
-  .doodle { position: absolute; pointer-events: none; filter: url(#wobble); }
-  .doodle svg { display: block; overflow: visible; }
-  .d-heart { top: 22px; left: 8px; width: 54px; transform: rotate(-14deg); }
-  .d-spark1 { top: 40px; right: 24px; width: 30px; transform: rotate(12deg); }
-  .d-spark2 { top: 150px; right: -6px; width: 20px; transform: rotate(-20deg); }
-  .d-cat { bottom: 12px; right: 4px; width: 92px; }
-  .d-berry { bottom: 60px; left: -4px; width: 60px; transform: rotate(10deg); }
-  .d-flower { top: 210px; left: -10px; width: 44px; transform: rotate(-6deg); }
-  @media (max-width: 700px) { .d-spark2, .d-flower, .d-berry { display: none; } .d-heart { left: 2px; width: 44px; } }
+  header { margin-bottom: 40px; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 10px; }
+  h1 { font-size: 34px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; margin: 0 0 12px; }
+  .summary { margin: 0; font-size: 15px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .summary b { color: var(--accent); font-weight: 700; }
+  .bar { height: 3px; margin-top: 16px; background: var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .35s ease; }
 
-  header { position: relative; text-align: center; margin-bottom: 26px; }
-  h1 { font-size: 52px; font-weight: 700; line-height: 1.1; margin: 0 0 6px; letter-spacing: -.01em; }
-  h1 .under { display: inline-block; position: relative; }
-  h1 .under::after {
-    content: ""; position: absolute; left: -4px; right: -4px; bottom: 4px; height: 12px; z-index: -1;
-    background: var(--butter); border-radius: var(--wobble-sm); transform: rotate(-1.2deg);
-  }
-  .summary { margin: 0; font-size: 22px; color: var(--ink-soft); }
-  .summary b { color: var(--ink); font-weight: 700; }
+  form { display: flex; gap: 0; border-bottom: 1.5px solid var(--ink); margin-bottom: 8px; }
+  form input { flex: 1; min-width: 0; padding: 12px 0; background: none; border: 0; font-size: 17px; }
+  form input::placeholder { color: var(--ink-3); }
+  form input:focus-visible { outline: none; }
+  form:focus-within { border-bottom-color: var(--accent); }
+  .add { padding: 0 4px 0 16px; font-weight: 500; font-size: 15px; color: var(--ink); }
+  .add:hover:not(:disabled) { color: var(--accent); }
 
-  .bar { position: relative; height: 18px; margin: 14px auto 0; max-width: 300px;
-    border: 3px solid var(--ink); border-radius: var(--wobble-sm); background: #fff; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 0; background: var(--pink);
-    background-image: repeating-linear-gradient(-55deg, transparent 0 8px, rgba(255,255,255,.35) 8px 12px);
-    transition: width .4s ease; }
+  ul.list { list-style: none; margin: 0; padding: 0; }
+  li.item { display: grid; grid-template-columns: 20px 1fr 24px; gap: 14px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  li.item.new { animation: rise .25s ease-out both; }
+  @keyframes rise { from { opacity: .001; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
-  /* 종이 카드 */
-  .card { position: relative; background: #fff; border: 3px solid var(--ink); border-radius: var(--wobble); padding: 22px 22px 18px; }
-  .card::after {
-    content: ""; position: absolute; inset: 6px -8px -8px 6px; z-index: -1;
-    border: 3px solid var(--sky); border-radius: var(--wobble); transform: rotate(.6deg);
-  }
+  .check { width: 20px; height: 20px; border: 1.5px solid var(--ink); border-radius: 3px; display: grid; place-items: center; transition: background .15s, border-color .15s; }
+  .check svg { width: 12px; height: 12px; fill: none; stroke: var(--on-accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; stroke-dashoffset: 20; transition: stroke-dashoffset .2s ease .05s; }
+  .check:hover { border-color: var(--accent); }
+  li.done .check { background: var(--accent); border-color: var(--accent); }
+  li.done .check svg { stroke-dashoffset: 0; }
 
-  form { display: flex; gap: 10px; margin-bottom: 18px; }
-  form input {
-    flex: 1; min-width: 0; padding: 8px 14px; background: #fff;
-    border: 3px solid var(--ink); border-radius: var(--wobble-sm);
-  }
-  form input::placeholder { color: #B9B9B9; }
-  .btn {
-    padding: 8px 18px; font-weight: 700; border: 3px solid var(--ink); border-radius: var(--wobble-sm);
-    background: var(--butter); white-space: nowrap; transform: rotate(-1deg); transition: transform .12s ease;
-  }
-  .btn:hover:not(:disabled) { transform: rotate(1deg) scale(1.04); }
-  .btn.quiet { background: var(--mint); font-weight: 400; font-size: 19px; transform: none; }
+  .title { font-size: 17px; overflow-wrap: anywhere; transition: color .15s; }
+  li.done .title { color: var(--ink-2); text-decoration: line-through; text-decoration-color: var(--ink-3); text-decoration-thickness: 1px; }
 
-  ul.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-  li.item { display: grid; grid-template-columns: 34px 1fr 30px; gap: 12px; align-items: center; padding: 6px 4px; border-bottom: 2px dashed #E4E4E4; }
-  li.item:last-child { border-bottom: 0; }
-  li.item.new { animation: pop .3s ease-out both; }
-  @keyframes pop { from { transform: scale(.92); opacity: .001; } to { transform: none; opacity: 1; } }
+  .del { width: 24px; height: 24px; color: var(--ink-3); border-radius: 3px; display: grid; place-items: center; transition: color .12s; }
+  .del svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .del:hover { color: var(--accent); }
 
-  .check { width: 34px; height: 34px; position: relative; }
-  .check svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .check .ring { fill: #fff; stroke: var(--ink); stroke-width: 3; }
-  .check .fill { fill: var(--pink); opacity: 0; transform: scale(.4); transform-origin: 50% 50%; transition: opacity .18s, transform .22s cubic-bezier(.34,1.56,.64,1); }
-  .check .tick { fill: none; stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 30; stroke-dashoffset: 30; transition: stroke-dashoffset .25s ease .08s; }
-  li.done .check .fill { opacity: 1; transform: scale(1); }
-  li.done .check .tick { stroke-dashoffset: 0; }
+  .empty { padding: 28px 0; color: var(--ink-2); font-size: 15px; border-bottom: 1px solid var(--line); }
 
-  .title { position: relative; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
-  .title::after {
-    content: ""; position: absolute; left: -3px; right: -3px; top: 52%; height: 5px; background: var(--pink-deep);
-    border-radius: 4px; transform: rotate(-1.5deg) scaleX(0); transform-origin: left center; transition: transform .25s ease;
-  }
-  li.done .title { color: var(--ink-soft); }
-  li.done .title::after { transform: rotate(-1.5deg) scaleX(1); }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
+  .status { font-size: 13px; color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+  .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); }
+  body[data-state="loading"] .status .dot { animation: blink 1s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: .3; } }
+  body[data-state="ready"] .status .dot { background: var(--accent); animation: none; }
+  body[data-state="error"] .status { color: var(--accent); }
+  body[data-state="error"] .status .dot { background: var(--accent); animation: none; }
+  .clear { font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line); }
+  .clear:hover:not(:disabled) { color: var(--accent); text-decoration-color: var(--accent); }
 
-  .del { width: 30px; height: 30px; font-size: 26px; line-height: 1; color: #C9C9C9; border-radius: 50%; transition: color .12s, transform .12s; }
-  .del:hover { color: var(--pink-deep); transform: rotate(12deg) scale(1.15); }
-
-  .empty { text-align: center; padding: 18px 8px 8px; color: var(--ink-soft); }
-  .empty svg { display: block; width: 84px; margin: 0 auto 4px; filter: url(#wobble); }
-
-  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 3px solid var(--ink); flex-wrap: wrap; }
-  .status { font-size: 18px; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; }
-  .status .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--butter-deep); border: 2px solid var(--ink); }
-  body[data-state="ready"] .status .dot { background: var(--mint-deep); }
-  body[data-state="error"] .status .dot { background: var(--pink-deep); }
-
-  /* Python 콘솔 — 공책 종이 */
-  .console { margin-top: 34px; }
-  .console h2 { font-size: 26px; font-weight: 700; margin: 0 0 8px; display: flex; align-items: baseline; gap: 10px; }
-  .console h2 small { font-size: 18px; font-weight: 400; color: var(--ink-soft); }
-  .notebook {
-    position: relative; border: 3px solid var(--ink); border-radius: var(--wobble-sm); padding: 14px 16px 14px 42px; min-height: 120px;
-    background: #FFFDF6 repeating-linear-gradient(transparent 0 27px, #CFE4F7 27px 29px); background-position: 0 6px;
-    font-family: var(--mono); font-size: 14px; line-height: 29px; color: var(--ink); overflow-x: auto; white-space: pre;
-  }
-  .notebook::before { content: ""; position: absolute; top: 0; bottom: 0; left: 30px; width: 2px; background: var(--pink); }
-  .notebook .p { color: var(--sky-deep); }
-  .notebook .r { color: var(--lilac-deep); }
-  .notebook .hint { color: #B0B0B0; }
+  .console { margin-top: 56px; }
+  .console h2 { font-size: 12px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 10px; display: flex; justify-content: space-between; gap: 12px; }
+  .console h2 small { font-weight: 400; letter-spacing: 0; text-transform: none; font-size: 12px; }
+  .term { background: var(--console-bg); color: var(--console-ink); font-family: var(--mono); font-size: 13px; line-height: 1.7; padding: 16px 18px; margin: 0; min-height: 96px; overflow-x: auto; white-space: pre; border-radius: 2px; }
+  .term .p { color: var(--accent); }
+  .term .r { color: var(--console-dim); }
+  .term .hint { color: var(--console-dim); }
 
   @media (max-width: 480px) {
-    body { font-size: 20px; }
-    .stage { padding: 40px 14px 120px; }
-    h1 { font-size: 42px; }
-    .card { padding: 16px 14px 14px; }
-    form { flex-direction: column; }
-    .btn { transform: none; }
+    .page { padding: 48px 20px 80px; }
+    h1 { font-size: 30px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; }
@@ -153,44 +113,31 @@
 </head>
 <body data-state="loading">
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <filter id="wobble">
-    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/>
-    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
-  </filter>
-</svg>
-
-<div class="stage">
-  <span class="doodle d-heart" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 4 1.5 5 3 1-1.5 3-3 5-3 4 0 6.5 4 4.5 8C19 16.5 12 21 12 21z" fill="#F9AFC8" stroke="#F07FA5" stroke-width="2" stroke-linejoin="round"/></svg></span>
-  <span class="doodle d-spark1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" fill="#FBE38A" stroke="#F2C94C" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-  <span class="doodle d-spark2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2 8 8 2-8 2-2 8-2-8-8-2 8-2z" fill="#A9D4F5" stroke="#6FB3E8" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-  <span class="doodle d-flower" aria-hidden="true"><svg viewBox="0 0 40 80"><path d="M20 78V30" stroke="#6CC482" stroke-width="4" stroke-linecap="round"/><path d="M20 30c-6-2-10-8-8-14 3 2 6 6 8 12 2-6 5-10 8-12 2 6-2 12-8 14z" fill="#D3C1F2" stroke="#A98BE0" stroke-width="2.5" stroke-linejoin="round"/><circle cx="20" cy="26" r="4" fill="#FBE38A"/></svg></span>
-  <span class="doodle d-berry" aria-hidden="true"><svg viewBox="0 0 40 44"><path d="M20 12C8 12 5 24 11 33c4 6 14 6 18 0 6-9 3-21-9-21z" fill="#F9AFC8" stroke="#F07FA5" stroke-width="2.5" stroke-linejoin="round"/><path d="M20 12c-3-5-8-6-11-4 3 1 6 3 8 5m3-1c3-5 8-6 11-4-3 1-6 3-8 5" fill="#B5E6BF" stroke="#6CC482" stroke-width="2.5" stroke-linejoin="round"/><g fill="#F2C94C"><circle cx="15" cy="22" r="1.6"/><circle cx="22" cy="19" r="1.6"/><circle cx="25" cy="27" r="1.6"/><circle cx="17" cy="30" r="1.6"/></g></svg></span>
-  <span class="doodle d-cat" aria-hidden="true"><svg viewBox="0 0 60 60" fill="none" stroke="#3D3D3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30L11 10l14 10M46 30l3-20-14 10"/><ellipse cx="30" cy="34" rx="20" ry="17" fill="#fff"/><path d="M22 32h.5M38 32h.5" stroke-width="4"/><path d="M27 40c1.5 2 4.5 2 6 0M30 38v2"/><path d="M8 36l10 1M8 42l10-2M52 36l-10 1M52 42l-10-2" stroke-width="2"/><path d="M3 20c2-4 6-4 8-1" stroke="#F07FA5" stroke-width="2.5"/></svg></span>
-
+<div class="page">
   <header>
-    <h1><span class="under">오늘의 할 일</span></h1>
+    <p class="eyebrow">Todo · todo.py</p>
+    <h1>오늘의 할 일</h1>
     <p class="summary" id="summary">Python 불러오는 중…</p>
     <div class="bar" aria-hidden="true"><i id="bar"></i></div>
   </header>
 
-  <main class="card">
+  <main>
     <form id="form" autocomplete="off">
-      <input id="input" type="text" maxlength="40" placeholder="뭘 해야 하지?" aria-label="할 일 내용" disabled>
-      <button class="btn" type="submit" id="add" disabled>추가!</button>
+      <input id="input" type="text" maxlength="40" placeholder="할 일을 입력하세요" aria-label="할 일 내용" disabled>
+      <button class="add" type="submit" id="add" disabled>추가</button>
     </form>
 
     <ul class="list" id="list" aria-live="polite"></ul>
 
     <div class="foot">
       <div class="status"><span class="dot"></span><span id="status">Python 불러오는 중…</span></div>
-      <button class="btn quiet" type="button" id="clear" disabled>완료한 것 지우기</button>
+      <button class="clear" type="button" id="clear" disabled>완료한 항목 지우기</button>
     </div>
   </main>
 
   <section class="console" aria-label="Python 콘솔">
-    <h2>todo.py 콘솔 <small>버튼을 누르면 이 함수가 실행돼요</small></h2>
-    <pre class="notebook" id="console"><span class="hint">아직 아무것도 안 했어요.</span></pre>
+    <h2>Python 콘솔 <small>버튼을 누르면 호출된 함수가 표시됩니다</small></h2>
+    <pre class="term" id="console"><span class="hint">아직 호출된 함수가 없습니다.</span></pre>
   </section>
 </div>
 
@@ -210,7 +157,7 @@
     if (items.length === 0) {
       const d = document.createElement("li");
       d.className = "empty";
-      d.innerHTML = '<svg viewBox="0 0 60 60" fill="none" stroke="#3D3D3D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30L11 10l14 10M46 30l3-20-14 10"/><ellipse cx="30" cy="34" rx="20" ry="17" fill="#fff"/><path d="M22 32h.5M38 32h.5" stroke-width="4"/><path d="M27 40c1.5 2 4.5 2 6 0M30 38v2"/></svg>할 일이 없어요. 하나 적어 볼까요?';
+      d.textContent = "할 일이 없습니다. 위에 하나 적어 보세요.";
       els.list.append(d);
     }
     items.forEach((it, i) => {
@@ -218,10 +165,12 @@
       li.className = "item" + (it.done ? " done" : "") + (it.fresh ? " new" : "");
       li.innerHTML = `
         <button class="check" type="button" data-act="done" data-n="${i + 1}" aria-label="${it.done ? "완료함" : "완료하기"}: ${esc(it.title)}" aria-pressed="${it.done}">
-          <svg viewBox="0 0 34 34"><circle class="ring" cx="17" cy="17" r="13"/><circle class="fill" cx="17" cy="17" r="11"/><path class="tick" d="M10 17l5 5 9-11"/></svg>
+          <svg viewBox="0 0 12 12"><path d="M2 6.5l2.6 2.6L10 3.5"/></svg>
         </button>
         <span class="title">${esc(it.title)}</span>
-        <button class="del" type="button" data-act="del" data-n="${i + 1}" aria-label="삭제: ${esc(it.title)}">×</button>`;
+        <button class="del" type="button" data-act="del" data-n="${i + 1}" aria-label="삭제: ${esc(it.title)}">
+          <svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+        </button>`;
       els.list.append(li);
     });
     els.clear.disabled = !items.some((it) => it.done);
@@ -261,7 +210,7 @@
     e.preventDefault();
     const text = els.input.value;
     const before = todo.todos.length;
-    const msg = run(`add_todo(${pyStr(text)})`, () => todo.add_todo(text), before);
+    run(`add_todo(${pyStr(text)})`, () => todo.add_todo(text), before);
     if (todo.todos.length > before) els.input.value = "";
     els.input.focus();
   });
@@ -294,8 +243,8 @@
       els.input.focus();
     } catch (err) {
       console.error(err);
-      setStatus("Python을 불러오지 못했어요. 인터넷을 확인하고 새로고침해 주세요.", "error");
-      els.summary.textContent = "앗, 문제가 생겼어요.";
+      setStatus("Python을 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침하세요.", "error");
+      els.summary.textContent = "문제가 생겼습니다.";
     }
   }
   boot();

@@ -1,0 +1,45 @@
+{
+  "seoul_minimal.csv": {
+    "source_sha256": "7333aedf31a698031bb04dea2c6dd63b3fabc0be1291f1bffd7c8e8f0c7ee4ce",
+    "snapshot_sha256": "a5f0570da2c80fec7ba50887caa2a83a38f8f14680e570d57cb529e2c97ed35d",
+    "rows": 5562,
+    "columns": [
+      "vid",
+      "시도",
+      "시군구",
+      "주택유형",
+      "pnu",
+      "판정일",
+      "판정일_근거",
+      "추적시작",
+      "대상_주용도",
+      "건축연령",
+      "집합",
+      "법인",
+      "판정일_마지막취득",
+      "해소",
+      "해소일",
+      "해소_첫신호",
+      "해소_확실",
+      "해소일_확실",
+      "명부전신호",
+      "제외사유",
+      "보류사유",
+      "결과_대분류",
+      "분석대상"
+    ]
+  },
+  "seoul_land.csv": {
+    "source_sha256": "d61784feb2ed55a076dad3ec53ba9ee625a21bda85b8c5936e97d075e95fbeee",
+    "snapshot_sha256": "8d456632df9bd8597c179b4ecf9b6f34915d31174131c38cd4cbd53553aa5cbe",
+    "rows": 100934,
+    "columns": [
+      "조회pnu",
+      "상태",
+      "stdrYear",
+      "prposArea1Nm",
+      "roadSideCodeNm",
+      "pblntfPclnd"
+    ]
+  }
+}

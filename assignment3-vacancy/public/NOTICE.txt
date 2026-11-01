@@ -1,0 +1,11 @@
+Map geometry attribution
+
+Seoul Maps — https://github.com/southkorea/seoul-maps
+Contributor credited by the project: Lucy Park.
+Upstream data source stated by the project: JUSO, Seoul municipal boundaries, 2015.
+Source file: juso/2015/json/seoul_municipalities_geo_simple.json
+License stated by the project: Apache License 2.0 (copy in APACHE-2.0.txt).
+
+Changes for this report: selected municipality geometry, projected for display,
+joined district-level aggregate analysis by Korean district name, and styled.
+Geometry is used for district location illustration, not as a current cadastral boundary.

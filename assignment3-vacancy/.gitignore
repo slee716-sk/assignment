@@ -1,0 +1,10 @@
+.venv/
+.deps/
+private/
+node_modules/
+.wrangler/
+__pycache__/
+.env*
+.dev.vars*
+*.log
+checks.json

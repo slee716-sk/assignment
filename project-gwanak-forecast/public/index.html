@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>관악구 주택 유형별 소유권 이전 특성 분석 및 예측 · LauD</title>
+<meta name="description" content="관악구 단독·다가구·다세대주택의 소유권 이전율을 공시지가·입지·정비구역 이력과 함께 분석하고, 다음 1년의 이전 횟수를 예측하는 팀 프로젝트 제안입니다.">
+<meta name="theme-color" content="#f5f5f0">
+<meta property="og:title" content="관악구 주택 유형별 소유권 이전 특성 분석 및 예측">
+<meta property="og:description" content="팀 LauD 프로젝트 제안 · 관측 2015–2025 · 예측 2026">
+<meta property="og:image" content="assets/service-sketch.jpg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a href="#" class="brand">관악구 소유권 이전 연구 <span>LauD</span></a>
+  <nav aria-label="본문">
+    <a href="#team">팀</a><a href="#goal">목표</a><a href="#data">데이터</a><a href="#indicators">지표</a><a href="#spatial">공간분석</a><a href="#model">예측 모형</a><a href="#service">서비스</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="eyebrow">TEAM PROJECT PROPOSAL · GWANAK-GU · 2026</div>
+  <h1>관악구 주택 유형별<br>소유권 이전 특성 분석 및 예측</h1>
+  <p class="lead">단독·다가구·다세대주택의 소유권 이전 빈도를 공시지가·입지·정비구역 이력과 함께 읽고,<br class="desktop"> 다음 1년의 이전 횟수를 예측해 지도와 그래프로 제공한다.</p>
+  <div class="stats">
+    <div><b>3<small>개 유형</small></b><span>단독·다가구·다세대주택</span></div>
+    <div><b>2015–2025</b><span>관측기간 · 개별 부동산 × 연도</span></div>
+    <div><b>2026</b><span>예측 · 다음 1년간 소유권 이전 횟수</span></div>
+    <div><b>3<small>개 집단</small></b><span>정비구역 해제 · 이력 없음 · 현재 지정</span></div>
+  </div>
+  <div class="hero-foot"><span>팀 LauD · 박병주 · 서정원 · 이수경</span><a href="#goal">연구 질문 보기 ↓</a></div>
+</section>
+
+<!-- 1. 팀 -->
+<section class="section" id="team">
+  <div class="section-head"><div><div class="eyebrow">01 / TEAM</div><h2>팀명 · 팀원 · 역할 분담</h2></div></div>
+  <dl class="kv">
+    <div><dt>팀명</dt><dd><b>LauD</b>(Laus + IPUD)</dd></div>
+    <div><dt>팀원</dt><dd>박병주, 서정원, 이수경</dd></div>
+    <div><dt>역할 분담</dt><dd><ul class="chips" aria-label="역할 분담"><li>데이터 수집 및 전처리</li><li>지표 개발 및 적용</li><li>공간분석</li><li>예측모형 구축</li><li>서비스 구상</li><li>발표</li></ul></dd></div>
+  </dl>
+</section>
+
+<!-- 2. 유형과 목표 -->
+<section class="section" id="goal">
+  <div class="section-head"><div><div class="eyebrow">02 / TYPE &amp; GOAL</div><h2>프로젝트 유형과 목표</h2></div><p class="type-badge">프로젝트 유형 <b>A</b></p></div>
+  <h3 class="sub">연구 질문</h3>
+  <ol class="rq">
+    <li><span>RQ1</span><p>개별공시지가와 건축·토지·주변 환경 특성은 소유권 이전 빈도와 어떤 관계가 있는가?</p></li>
+    <li><span>RQ2</span><p>이러한 관계는 단독·다가구·다세대주택 사이에서 어떻게 다른가?</p></li>
+    <li><span>RQ3</span><p>정비구역에서 해제된 지역, 지정 이력이 없는 지역, 현재 지정된 지역 사이에 소유권 이전율 차이가 있는가?</p></li>
+  </ol>
+  <div class="goal-grid">
+    <div class="hypothesis"><h3>가설</h3><p>개별공시지가가 높고 접근성이 양호한 주택일수록 소유권 이전 빈도가 낮으며, 이러한 관련성은 주택 유형에 따라 다르게 나타날 것이다.</p></div>
+    <div><h3>목표</h3><p>주택 수와 관측기간을 보정한 소유권 이전율로 지역별 차이를 비교하고, 공시지가·물리적 입지 특성과 이전 빈도의 관계를 주택 유형별로 분석한다. 이후 다음 1년의 소유권 이전 횟수를 예측하여 지도와 그래프로 제공한다.</p></div>
+    <div><h3>대상 및 선정 이유</h3><p>관악구의 단독·다가구·다세대주택을 대상으로 한다. 동일한 자치구 안에서 주택 유형과 건축·토지·근린환경에 따른 차이를 비교하고자 한다.</p></div>
+  </div>
+</section>
+
+<!-- 3. 데이터 -->
+<section class="section" id="data">
+  <div class="section-head"><div><div class="eyebrow">03 / DATA · UNIT · PERIOD</div><h2>사용할 데이터와 출처,<br>공간 단위, 기간</h2></div></div>
+  <div class="table-wrap">
+    <table class="doc-table stack">
+      <thead><tr><th scope="col">데이터</th><th scope="col">출처</th><th scope="col">주요 활용 항목</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">소유권 이력</th><td data-label="출처">세움터 전국 소유자 데이터: 내부 보유자료, 2025년 12월 기준</td><td data-label="주요 활용 항목">연간 이전 횟수, 보유기간, 과거 이전 건수</td></tr>
+        <tr><th scope="row">건축물 특성</th><td data-label="출처">건축HUB 건축물대장 표제부·전유부·층별개요</td><td data-label="주요 활용 항목">사용승인일, 건축연령, 대지면적, 건축면적, 건축물 용도, 동·호 식별정보, 용도별 연면적. <a href="https://www.data.go.kr/data/15134735/openapi.do" target="_blank" rel="noopener">공공데이터포털</a></td></tr>
+        <tr><th scope="row">토지 및 지가</th><td data-label="출처">V-world 토지특성정보·개별공시지가·토지이용계획 자료</td><td data-label="주요 활용 항목">도로접면, 지형고저, 필지 형상·면적, 용도지역, 개별공시지가와 기준연월. <a href="https://www.data.go.kr/data/15048121/fileData.do" target="_blank" rel="noopener">공공데이터포털</a></td></tr>
+        <tr><th scope="row">정비사업 현황과 고시</th><td data-label="출처">서울 열린데이터광장 도시계획 정비사업 현황·결정고시 정보</td><td data-label="주요 활용 항목">구역명, 사업 및 고시 식별정보, 지정·변경·해제 시점 확인. 두 자료의 고시관리코드를 연결하여 활용한다. <a href="https://data.seoul.go.kr/dataList/OA-20281/A/1/datasetView.do" target="_blank" rel="noopener">data.seoul.go.kr</a></td></tr>
+        <tr><th scope="row">과거 정비구역 이력</th><td data-label="출처">서울시 과거 해제지역 현황, 토지이음 고시목록·고시 원문·지형도면</td><td data-label="주요 활용 항목">과거 지정·해제 이력과 경계 보완. 고시목록에서 고시번호·고시일·제목·원문 링크를 확인한다. <a href="https://www.data.go.kr/data/15083101/fileData.do" target="_blank" rel="noopener">data.go.kr</a></td></tr>
+        <tr><th scope="row">접근성 및 공간 기준</th><td data-label="출처">서울시·국토교통부·V-world 등의 공간자료 추가 확보</td><td data-label="주요 활용 항목">지하철 출입구와 개통 이력, 보행도로망, 건축물·필지·행정동 경계</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <dl class="kv">
+    <div><dt>기본 분석 단위</dt><dd>개별 부동산 × 연도. 단독·다가구는 건물, 다세대는 전유호를 기준으로 한다.</dd></div>
+    <div><dt>공간 집계 단위</dt><dd>행정동을 기본으로 하며, 100m 격자 결과를 함께 비교한다.</dd></div>
+    <div><dt>관측기간</dt><dd>2015년 1월~2025년 12월.</dd></div>
+    <div><dt>예측기간</dt><dd>2025년 말까지의 정보를 이용한 2026년 1월~12월 예측.</dd></div>
+    <div><dt>좌표계</dt><dd>거리·면적 계산에는 EPSG:5179 사용.</dd></div>
+  </dl>
+</section>
+
+<!-- 4. 지표 -->
+<section class="section" id="indicators">
+  <div class="section-head"><div><div class="eyebrow">04 / INDICATORS</div><h2>사용할 지표</h2></div></div>
+  <div class="index-grid">
+    <div>
+      <h3><span class="num">①</span>소유권 이전 횟수와 이전율</h3>
+      <p>개별 부동산의 연간 소유권 이전 횟수를 산출하고, 행정동·격자·주택 유형·정비구역 집단 간 비교에는 부동산 100개당 연간 소유권 이전율 사용.</p>
+      <div class="formula" role="img" aria-label="소유권 이전율은 분석기간의 총 이전횟수를 개별 부동산의 관측연수 합계로 나누고 100을 곱한 값">
+        <span class="f-name">소유권 이전율</span><span>=</span>
+        <span class="rhs"><span class="fraction"><span>분석기간의 총 이전횟수</span><span>개별 부동산의 관측연수 합계</span></span><span>× 100</span></span>
+      </div>
+      <p>단독·다가구는 <b>건물 관측연수</b>, 다세대는 <b>전유호 관측연수</b>를 분모로 사용.</p>
+    </div>
+    <div>
+      <h3><span class="num">②</span>설명변수</h3>
+      <div class="table-wrap">
+        <table class="doc-table stack">
+          <thead><tr><th scope="col">구분</th><th scope="col">사용할 변수</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">지가</th><td data-label="사용할 변수">개별공시지가</td></tr>
+            <tr><th scope="row">건축 특성</th><td data-label="사용할 변수">건축연령, 대지면적, 건축면적</td></tr>
+            <tr><th scope="row">토지 및 입지</th><td data-label="사용할 변수">용도지역, 도로접면, 지형고저, 필지 형상</td></tr>
+            <tr><th scope="row">이전 이력</th><td data-label="사용할 변수">보유기간, 과거 소유권 이전 건수</td></tr>
+            <tr><th scope="row">접근성</th><td data-label="사용할 변수">최근접 지하철 출입구까지의 최단 보행거리</td></tr>
+            <tr><th scope="row">근린환경</th><td data-label="사용할 변수">건물 주변 50m·100m의 용도별 연면적 비중과 용도혼합도</td></tr>
+            <tr><th scope="row">정비구역 이력</th><td data-label="사용할 변수">해제 지역 / 지정 이력 없음 / 현재 지정 지역</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="index-grid">
+    <div>
+      <h3>용도 혼합도</h3>
+      <p>용도 혼합도 계산: 주변 건물의 주거·상업·업무·기타 등 용도로 Normalized Shannon Entropy Index를 활용하여 용도 혼합도 계산.</p>
+      <div class="formula math" role="img" aria-label="H는 k가 1부터 K까지 p k 곱하기 ln p k의 합을 ln K로 나눈 값에 마이너스를 붙인 값">
+        <var>H</var><span>=</span><span>−</span>
+        <span class="fraction"><span><span class="bigop"><small><var>K</var></small><span>∑</span><small><var>k</var>=1</small></span><var>p<sub>k</sub></var> ln <var>p<sub>k</sub></var></span><span>ln <var>K</var></span></span>
+      </div>
+      <p class="var-note"><var>p<sub>k</sub></var>: 용도 <var>k</var>의 연면적 비중 · <var>K</var>: 용도 범주 수. 0이면 한 용도만 있고 1에 가까울수록 고르게 섞여 있다.</p>
+    </div>
+    <div>
+      <h3>정비구역의 세 집단 분류 기준</h3>
+      <dl class="groups">
+        <div><dt><i class="g-released" aria-hidden="true"></i>해제 지역</dt><dd>과거 정비구역 지정 이력이 있으나, 기준 시점에는 해제되어 미지정 상태인 지역</dd></div>
+        <div><dt><i class="g-none" aria-hidden="true"></i>지정 이력 없음</dt><dd>확인 가능한 자료에서 기준 시점까지 정비구역 지정 이력이 확인되지 않는 지역</dd></div>
+        <div><dt><i class="g-current" aria-hidden="true"></i>현재 지정 지역</dt><dd>기준 시점에 정비구역으로 지정된 지역. 해제 후 재지정된 곳도 포함</dd></div>
+      </dl>
+      <ul class="notes">
+        <li>연간 비교와 예측변수는 <b>각 연도의 직전 연말 상태</b>를 기준으로 구성.</li>
+        <li>건물 유형별로 모형 별도로 구성</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. 공간분석 -->
+<section class="section" id="spatial">
+  <div class="section-head"><div><div class="eyebrow">05 / SPATIAL ANALYSIS</div><h2>공간분석 기법</h2></div></div>
+  <div class="method-list">
+    <div><h3><span class="idx">01</span>공간결합 및 집계</h3><p>건축물·필지와 행정동·정비구역 경계를 중첩하여 소속과 이력을 부여한다. 주택 유형별 행정동·100m 격자 이전율을 산출하고 집계 단위에 따른 차이를 비교한다.</p></div>
+    <div><h3><span class="idx">02</span>버퍼 기반 근린환경 분석</h3><p>건물 주변 50m·100m에서 용도별 연면적 비중과 용도혼합도를 산출한다. 범위에 따라 이전 빈도와의 관계가 달라지는지 확인한다.</p></div>
+    <div><h3><span class="idx">03</span>보행 네트워크 접근성 분석</h3><p>최근접 지하철 출입구까지의 최단 보행거리를 계산한다. 당시 개통한 역을 적용하며, 보행망 확보가 어려우면 직선거리로 대체하고 명시한다.</p></div>
+    <div><h3><span class="idx">04</span>공간 자기상관 분석</h3><p>주택 유형별 행정동·격자 <b>이전율</b>에 Global Moran’s I와 LISA를 적용하여 공간적 군집과 이상치를 확인한다. 분모가 작은 지역의 결과는 불안정성을 점검한다.</p></div>
+    <div><h3><span class="idx">05</span>정비구역 이력에 따른 비교</h3><p>세 집단을 주택 유형별로 나누어 이전율과 연도별 변화를 비교한다. 지정·해제 시점을 함께 표시하여 변화 양상을 살펴본다.</p></div>
+  </div>
+</section>
+
+<!-- 6. 예측 -->
+<section class="section" id="model">
+  <div class="section-head"><div><div class="eyebrow">06 / PREDICTION</div><h2>예측 대상(y)과 후보 모형</h2></div></div>
+  <p class="y-statement"><span>예측 대상 (y)</span><b>개별 부동산의 다음 1년간 소유권 이전 횟수.</b></p>
+  <ul class="notes">
+    <li>관측 가능한 부동산 중 이전이 발생하지 않은 경우도 0회로 포함.</li>
+    <li>단독·다가구·다세대별로 모형을 따로 구축하며, 각 모형에 정비구역의 세 범주를 설명변수로 반영</li>
+  </ul>
+  <div class="model-grid">
+    <div>
+      <div class="table-wrap">
+        <table class="doc-table stack">
+          <thead><tr><th scope="col">주택 유형</th><th scope="col">예측 단위</th><th scope="col">기준모형</th><th scope="col">비교모형</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">단독주택</th><td data-label="예측 단위">건물 × 연도</td><td data-label="기준모형">Ridge 회귀</td><td data-label="비교모형">Random Forest 회귀</td></tr>
+            <tr><th scope="row">다가구주택</th><td data-label="예측 단위">건물 × 연도</td><td data-label="기준모형">Ridge 회귀</td><td data-label="비교모형">Random Forest 회귀</td></tr>
+            <tr><th scope="row">다세대주택</th><td data-label="예측 단위">전유호 × 연도</td><td data-label="기준모형">Ridge 회귀</td><td data-label="비교모형">Random Forest 회귀</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>평가·해석</h3>
+      <p class="body">주택 유형별 MAE·RMSE로 예측 성능을 비교한다. Ridge 회귀계수와 Random Forest 변수 중요도를 확인하고, 입지·건물 변수만 사용한 모형과 개별공시지가를 추가한 모형의 성능도 비교한다.</p>
+    </div>
+    <div>
+      <h3>학습·검증</h3>
+      <p class="body">전년도 정보로 다음 해를 예측하도록 구성한다. 예를 들어 2015년을 최초 입력 시점으로 사용하고, 예측 대상 연도 기준으로 2016~2021년은 학습, 2022~2023년은 검증, 2024~2025년은 최종 시험에 사용한다. 설정값 조정에는 최종 시험자료를 사용하지 않는다.</p>
+      <div class="timeline" role="img" aria-label="2015년 최초 입력, 2016~2021년 학습, 2022~2023년 검증, 2024~2025년 최종 시험, 2026년 예측">
+        <div class="band input"><b>2015</b><span>최초 입력</span></div>
+        <div class="band train"><b>2016–2021</b><span>학습</span></div>
+        <div class="band valid"><b>2022–2023</b><span>검증</span></div>
+        <div class="band test"><b>2024–2025</b><span>최종 시험</span></div>
+        <div class="band forecast"><b>2026</b><span>예측</span></div>
+      </div>
+      <p class="caption">예측 대상 연도 기준. 각 연도는 직전 연도까지의 정보로 예측한다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 서비스 -->
+<section class="section" id="service">
+  <div class="section-head"><div><div class="eyebrow">07 / SERVICE SKETCH</div><h2>서비스 화면 스케치</h2></div></div>
+  <figure class="sketch">
+    <picture>
+      <source srcset="assets/service-sketch.webp" type="image/webp">
+      <img src="assets/service-sketch.jpg" width="1946" height="1102" decoding="async" alt="관악구 부동산 소유권 이전 예측 서비스 화면 스케치. 왼쪽 분석 조건 패널에서 주택 유형, 행정동, 예측연도, 현행 정비구역 제외 여부를 고르고, 가운데에 관악구 행정동별 예측 이전 건수 지도, 오른쪽에 예상 이전 건수, 예측 상위 지역, 주요 영향 요인(공시지가·건축연령·과거 이전 건수)과 주택 유형별 예측 건수 막대그래프가 있다.">
+    </picture>
+    <figcaption>구상 단계의 화면 예시다. 지도 색과 막대 높이는 예시이며 분석 결과가 아니다.</figcaption>
+  </figure>
+  <div class="service-grid">
+    <div>
+      <h3>사용자가 조작하는 항목</h3>
+      <dl class="kv compact">
+        <div><dt>연도·기간</dt><dd>2015~2025년 관측기간 선택, 2026년 미래 예측</dd></div>
+        <div><dt>주택 유형</dt><dd>단독주택 / 다가구주택 / 다세대주택</dd></div>
+        <div><dt>정비구역 이력</dt><dd>전체 / 해제 지역 / 지정 이력 없음 / 현재 지정 지역</dd></div>
+        <div><dt>지역</dt><dd>관악구 전체 / 행정동 선택</dd></div>
+        <div><dt>공간 단위</dt><dd>행정동 / 100m 격자</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>사용자가 얻는 결과와 화면 구성</h3>
+      <dl class="kv compact">
+        <div><dt>왼쪽 조건 패널</dt><dd>연도·주택 유형·정비구역 이력·행정동·표시 지표 선택</dd></div>
+        <div><dt>중앙 지도</dt><dd>선택 조건의 관측·예측 이전율 지도와 정비구역 경계·해제 이력</dd></div>
+        <div><dt>오른쪽 요약</dt><dd>해당 지역의 이전율, 이전 건수, 분석대상 수, 공시지가, 건축연령, 접근성, 용도혼합도</dd></div>
+        <div><dt>하단 그래프</dt><dd>연도별 이전율 변화, 주택 유형별·정비구역 집단별 비교, 지가·입지 특성과 이전 빈도의 관계</dd></div>
+        <div><dt>예측 비교 화면</dt><dd>2026년 예상 이전율·예상 건수, 실제값이 확보된 시험 연도의 실제−예측 이전율 지도</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>팀 LauD · 관악구 주택 유형별 소유권 이전 특성 분석 및 예측 · 프로젝트 제안</span>
+  <span><a href="https://snu-laus.notion.site/42032921929280d5b047fc6239985230" target="_blank" rel="noopener">노션 원문 ↗</a> · <a href="https://github.com/slee716-sk/assignment/tree/main/project-gwanak-forecast" target="_blank" rel="noopener">GitHub ↗</a> · 2026.11.22 기준</span>
+</footer>
+</body>
+</html>

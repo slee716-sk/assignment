@@ -1,0 +1,8 @@
+{
+  "name": "gwanak-property-forecast",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "none"
+  }
+}
